@@ -16,9 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+# from bike_app.views import ReturnBikeView, RentalHistoryView, RentBikeView, BikesListCreateView, AvailableBikesListView
+from bike_app.views import RentalHistoryView, BikesListCreateView, AvailableBikesListView, BikeRentalViewSet
+from main_app.views import UserCreateView
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'api/bike/rental', BikeRentalViewSet, basename='rental')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/users/', include('main_app.urls')),
-    path('api/bikes/', include('bike_app.urls')),
+    path('api/users/register/', UserCreateView.as_view(), name="register"),
+    path('api/users/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/users/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/bikes/available/', AvailableBikesListView.as_view(), name='available_bikes'),
+    path('api/bikes/register/', BikesListCreateView.as_view(), name='bikes_list_register'),
+    path('', include(router.urls)),
+    path('api/bikes/history/', RentalHistoryView.as_view(), name='rental_history'),
 ]

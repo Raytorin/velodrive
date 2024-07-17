@@ -1,0 +1,12 @@
+version: '3.12'
+
+networks:
+  backend:
+
+volumes:
+  pgdata:
+
+services:
+  postgredb:
+    image: 'postgres:15'
+    environment:
