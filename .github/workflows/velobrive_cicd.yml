@@ -75,6 +75,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js (если нужна установка Node.js, иначе можете пропустить)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install dependencies (если нужно)
+        run: npm install
+
+      - name: Build (если есть команда сборки, иначе пропустить)
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
