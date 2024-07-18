@@ -3,9 +3,6 @@ version: '3.12'
 networks:
   backend:
 
-volumes:
-  pgdata:
-
 services:
   postgredb:
     image: 'postgres:15'
@@ -25,3 +22,6 @@ services:
       - "8000:8000"
     depends_on:
       - postgredb
+
+volumes:
+  postgredb_data:
