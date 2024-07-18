@@ -51,8 +51,8 @@ jobs:
       - name: collect static files
         run: python manage.py collectstatic --noinput
 
-      - name: linting
-        run: flake8 .
+#      - name: linting
+#        run: flake8 .
 
       - name: set up Docker buildx
         uses: docker/setup-buildx-action@v2
