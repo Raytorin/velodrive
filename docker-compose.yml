@@ -9,4 +9,21 @@ volumes:
 services:
   postgredb:
     image: 'postgres:15'
+    volumes:
+      - postgres_data:/var/lip/postgresql/data
     environment:
+      POSTGRES_DB: ${{ env.DB_NAME }}
+      POSTGRES_USER: ${{ env.DB_USER }}
+      POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - postgredb

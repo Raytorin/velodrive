@@ -66,8 +66,7 @@ class BikeRentalViewSet(viewsets.ViewSet):
 
 class RentalHistoryView(generics.ListAPIView):
     serializer_class = RentalHistorySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        user = self.request.user
-        return Rental.objects.filter(user=user).order_by('-start_time')
+        return BikeRental.objects.filter(user=self.request.user)

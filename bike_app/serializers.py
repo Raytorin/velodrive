@@ -7,12 +7,6 @@ from django.utils import timezone
 class BikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bike
-        fields = ('id', 'name', 'status')
-
-
-class BikeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Bike
         fields = '__all__'
 
 
@@ -23,12 +17,12 @@ class BikeRentalSerializer(serializers.ModelSerializer):
 
 
 class RentalHistorySerializer(serializers.ModelSerializer):
-    bike = BikeSerializer(read_only=True)
+    bike = BikeSerializer()
     cost = serializers.SerializerMethodField()
 
     class Meta:
         model = BikeRental
-        fields = ('id', 'bike', 'start_time', 'end_time', 'cost')
+        fields = '__all__'
 
     def get_cost(self, obj):
-        return obj.calculated_cost()
+        return obj.calculate_rental_cost()
