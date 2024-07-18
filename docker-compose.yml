@@ -7,7 +7,7 @@ services:
   postgredb:
     image: 'postgres:15'
     volumes:
-      - postgres_data:/var/lip/postgresql/data
+      - postgredb_data:/var/lib/postgresql/data:rw
     environment:
       POSTGRES_DB: 'velodrive_db'
       POSTGRES_USER: 'postgres'
